@@ -7,7 +7,7 @@ export default defineConfig({
   preview: {
     allowedHosts: [
       'mi-frontend-daniela-cristaldo-playground-quarkus.apps-crc.testing',
-      '.apps-crc.testing' // Permite cualquier subdominio de apps-crc.testing
+      '.apps-crc.testing' 
     ]
   }
 })

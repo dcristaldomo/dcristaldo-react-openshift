@@ -9,7 +9,8 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const apiUrl = import.meta.env.VITE_API_URL || ''
+  // Runtime configuration - lee desde window.__CONFIG__ que se genera al arrancar el contenedor
+  const apiUrl = window.__CONFIG__?.VITE_API_URL || import.meta.env.VITE_API_URL || ''
 
   const fetchData = async () => {
     setLoading(true)
