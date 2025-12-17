@@ -1,28 +1,67 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [apiData, setApiData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const apiUrl = import.meta.env.VITE_API_URL || ''
+
+  const fetchData = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await fetch(`${apiUrl}/api/surcusales`)
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`)
+      }
+      const contentType = response.headers.get('content-type')
+      let data
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json()
+      } else {
+        data = await response.text()
+      }
+      setApiData(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={fetchData} disabled={loading}>
+          {loading ? 'Cargando...' : 'Consultar API Quarkus'}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+        {apiData && (
+          <div>
+            <h3>Respuesta del servidor:</h3>
+            {typeof apiData === 'object' ? (
+              <pre style={{ 
+                textAlign: 'left', 
+                background: '#1e1e1e', 
+                padding: '1rem', 
+                borderRadius: '8px',
+                overflow: 'auto'
+              }}>
+                {JSON.stringify(apiData, null, 2)}
+              </pre>
+            ) : (
+              <p>{apiData}</p>
+            )}
+          </div>
+        )}
+        <p style={{ fontSize: '0.8em', color: '#888' }}>
+          API URL: {apiUrl}
         </p>
       </div>
       <p className="read-the-docs">
