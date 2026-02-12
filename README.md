@@ -1,16 +1,20 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Configuración inicial
 
-Currently, two official plugins are available:
+Antes de comenzar a trabajar con el proyecto, es necesario configurar las variables de entorno:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Copia el archivo `.env.example` y renómbralo a `.env`:
+   ```bash
+   cp .env.sample .env
+   ```
 
-## React Compiler
+2. Edita el archivo `.env` y configura las variables según tu entorno:
+   - `VITE_API_URL`: URL de tu API backend
+   - `PORT`: Puerto en el que se ejecutará el servidor (por defecto: 8080)
+   - `HOST`: Host del servidor (por defecto: 0.0.0.0)
+   - `NODE_ENV`: Entorno de ejecución (development/production)
+   - `APP_VERSION`: Versión de la aplicación
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3. **Importante - Certificados SSL**: Para que la aplicación funcione correctamente, debes aceptar los certificados SSL en tu navegador.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
